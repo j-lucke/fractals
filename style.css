@@ -1,0 +1,29 @@
+canvas {
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+#screen {
+	display: flex;
+	flex-direction: row;
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 40px;
+	width: 600px;
+	margin: auto;
+}
+
+#carousel {
+	display: flex;
+	flex-direction: column;
+	width: 60px;
+	height: 512px;
+	padding: 20px;
+	justify-content: space-evenly;
+	//border: 1px solid black;
+}
+
+#pic3 {
+	border: 3px solid red;
+}
+
