@@ -154,20 +154,26 @@ stage.addEventListener('wheel', (e) => {
 });
 
 
+let drag = false;
+let mouseDown_x = 0;
+let mouseDown_y = 0;
 
-// cache on click (but not shift+click)
-// recenter if shift+click
-stage.addEventListener('click', (event) => {
+stage.addEventListener('mousedown', (event) => {
+	drag = false;
+	mouseDown_x = event.x;
+	mouseDown_y = event.y;
+});
+
+stage.addEventListener('mousemove', () => drag = true);
+
+stage.addEventListener('mouseup', (event) => {
 	const k = pics.findIndex( (e) => e.canvasNumber == 2 );
-	if (event.shiftKey) {
-		let a = event.clientX;
-		let b = event.clientY;
-		let u = stage.getBoundingClientRect().left;
-		let v = stage.getBoundingClientRect().top;
-		a = a - u;
-		b = b - v;
-		pics[k].info.x += (a-STAGE_SIZE/2)*(pics[k].info.size/STAGE_SIZE);
-		pics[k].info.y += (b-STAGE_SIZE/2)*(pics[k].info.size/STAGE_SIZE);
+	if (drag) {
+		let dp = pics[k].info.size / STAGE_SIZE;
+		let dx = (event.x - mouseDown_x) * dp;
+		let dy = (event.y - mouseDown_y) * dp;
+		pics[k].info.x -= dx;
+		pics[k].info.y -= dy;
 		createFractals(pics[k]);
 	} else {
 		for (j = k; j < pics.length; j++)
